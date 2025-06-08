@@ -1,0 +1,21 @@
+{
+  "name": "Meu Plano Alimentar",
+  "short_name": "Dieta",
+  "start_url": "dieta.html",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/16a34a/white?text=Dieta",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://placehold.co/512x512/16a34a/white?text=Dieta",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
