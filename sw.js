@@ -1,10 +1,10 @@
-// Nome do cache que vamos usar
-const CACHE_NAME = 'plano-alimentar-cache-v2'; // Mudei a versão para forçar a atualização
-// Arquivos que queremos salvar em cache para uso offline
+// Aumentar a versão do cache força o navegador a atualizar
+const CACHE_NAME = 'plano-alimentar-cache-v3';
+// Usar caminhos absolutos para os ficheiros
 const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json'
+  '/dieta/',
+  '/dieta/index.html',
+  '/dieta/manifest.json'
 ];
 
 // Apaga caches antigos na ativação
@@ -18,7 +18,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Evento de Instalação: Salva os arquivos em cache
+// Evento de Instalação: Salva os ficheiros em cache
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -29,7 +29,7 @@ self.addEventListener('install', event => {
   );
 });
 
-// Evento de Fetch: Intercepta os pedidos
+// Evento de Fetch: Interceta os pedidos
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
@@ -44,4 +44,3 @@ self.addEventListener('fetch', event => {
     )
   );
 });
-
