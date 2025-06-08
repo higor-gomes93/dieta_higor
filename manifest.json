@@ -1,7 +1,8 @@
 {
   "name": "Meu Plano Alimentar",
   "short_name": "Dieta",
-  "start_url": "dieta.html",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#f9fafb",
   "theme_color": "#16a34a",
