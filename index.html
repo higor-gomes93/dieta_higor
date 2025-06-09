@@ -38,7 +38,7 @@
             
             <!-- Café da Manhã -->
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-green-600 border-b pb-2">
+                <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-green-600 border-b pb-2">
                     <span>Café da Manhã (08:30)</span>
                     <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
                 </h2>
@@ -69,14 +69,26 @@
                             <span class="text-sm text-gray-500 block"><span class="font-semibold">1 unidade</span> (~80 kcal)</span>
                         </div>
                     </li>
-                    <li><div><span class="font-semibold">Clara de ovo cozida</span><span class="text-sm text-gray-500 block"><span class="font-semibold">1 unidade</span> (~21 kcal)</span></div></li>
                     <li><div><span class="font-semibold">Requeijão cremoso</span><span class="text-sm text-gray-500 block"><span class="font-semibold">30g</span> (~77 kcal)</span></div></li>
+                    <li class="flex items-center">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="font-semibold">Banana nanica</span>
+                                <button onclick="showModal('fruta_almoco')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">80g</span> (~73 kcal)</span>
+                        </div>
+                    </li>
                 </ul>
             </div>
 
             <!-- Almoço -->
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                 <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-yellow-600 border-b pb-2">
+                 <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-yellow-600 border-b pb-2">
                     <span>Almoço (12:30)</span>
                     <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
                 </h2>
@@ -127,7 +139,7 @@
 
             <!-- Lanche da Tarde -->
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-orange-600 border-b pb-2">
+                <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-orange-600 border-b pb-2">
                     <span>Lanche da Tarde (15:30)</span>
                     <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
                 </h2>
@@ -135,7 +147,7 @@
                      <li class="flex items-center">
                         <div>
                            <div class="flex items-center">
-                                <span class="font-semibold">Fruta (ex: Banana nanica)</span>
+                                <span class="font-semibold">Banana nanica</span>
                                 <button onclick="showModal('fruta_lanche')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
@@ -154,7 +166,7 @@
 
             <!-- Jantar -->
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-indigo-600 border-b pb-2">
+                <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-indigo-600 border-b pb-2">
                     <span>Jantar (19:30)</span>
                     <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
                 </h2>
