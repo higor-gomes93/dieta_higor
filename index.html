@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- A CORREÇÃO PRINCIPAL: Define o URL base para todos os caminhos relativos -->
+    <!-- Define o URL base para todos os caminhos relativos -->
     <base href="/dieta/">
 
     <title>Plano Alimentar Interativo</title>
@@ -35,75 +35,171 @@
         </header>
 
         <main class="space-y-8">
-            <!-- Conteúdo das Refeições aqui... (igual ao anterior) -->
+            
             <!-- Café da Manhã -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-                <h2 class="text-2xl font-semibold mb-4 text-green-600 border-b pb-2">Café da Manhã (08:30)</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
+                <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-green-600 border-b pb-2">
+                    <span>Café da Manhã (08:30)</span>
+                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
+                </h2>
                 <ul class="space-y-4">
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Pão de forma integral</span><span class="text-sm text-gray-500 block">2 unidades (~104 kcal)</span></div>
-                        <button onclick="showModal('pao')" class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-green-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="font-semibold">Pão de forma integral</span>
+                                <button onclick="showModal('pao')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">2 unidades</span> (~104 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Ovo inteiro cozido</span><span class="text-sm text-gray-500 block">1 unidade (~80 kcal)</span></div>
-                        <button onclick="showModal('ovo')" class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-green-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="font-semibold">Ovo inteiro cozido</span>
+                                <button onclick="showModal('ovo')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">1 unidade</span> (~80 kcal)</span>
+                        </div>
                     </li>
-                     <li class="flex justify-between items-center"><div><span class="font-semibold">Clara de ovo cozida</span><span class="text-sm text-gray-500 block">1 unidade (~21 kcal)</span></div></li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Requeijão cremoso</span><span class="text-sm text-gray-500 block">30g (~77 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Clara de ovo cozida</span><span class="text-sm text-gray-500 block"><span class="font-semibold">1 unidade</span> (~21 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Requeijão cremoso</span><span class="text-sm text-gray-500 block"><span class="font-semibold">30g</span> (~77 kcal)</span></div></li>
                 </ul>
             </div>
+
             <!-- Almoço -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-                <h2 class="text-2xl font-semibold mb-4 text-yellow-600 border-b pb-2">Almoço (12:30)</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
+                 <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-yellow-600 border-b pb-2">
+                    <span>Almoço (12:30)</span>
+                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
+                </h2>
                 <ul class="space-y-4">
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Peito de frango cozido</span><span class="text-sm text-gray-500 block">90g (~147 kcal)</span></div>
-                        <button onclick="showModal('frango')" class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-yellow-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="font-semibold">Peito de frango cozido</span>
+                                <button onclick="showModal('frango')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">90g</span> (~147 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Arroz branco cozido</span><span class="text-sm text-gray-500 block">100g (~128 kcal)</span></div>
-                        <button onclick="showModal('arroz')" class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-yellow-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                           <div class="flex items-center">
+                                <span class="font-semibold">Arroz branco cozido</span>
+                                <button onclick="showModal('arroz')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">100g</span> (~128 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Fruta (ex: Abacaxi)</span><span class="text-sm text-gray-500 block">150g (~72 kcal)</span></div>
-                        <button onclick="showModal('fruta_almoco')" class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-yellow-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                           <div class="flex items-center">
+                                <span class="font-semibold">Fruta (ex: Abacaxi)</span>
+                                <button onclick="showModal('fruta_almoco')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">150g</span> (~72 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Azeite de oliva extra virgem</span><span class="text-sm text-gray-500 block">7g (~62 kcal)</span></div></li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Salada de legumes no vapor e Alface</span><span class="text-sm text-gray-500 block">210g (~48 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Azeite de oliva extra virgem</span><span class="text-sm text-gray-500 block"><span class="font-semibold">7g</span> (~62 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Salada de legumes no vapor e Alface</span><span class="text-sm text-gray-500 block"><span class="font-semibold">210g</span> (~48 kcal)</span></div></li>
                 </ul>
             </div>
+
             <!-- Lanche da Tarde -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-                <h2 class="text-2xl font-semibold mb-4 text-orange-600 border-b pb-2">Lanche da Tarde (15:30)</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
+                <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-orange-600 border-b pb-2">
+                    <span>Lanche da Tarde (15:30)</span>
+                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
+                </h2>
                 <ul class="space-y-4">
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Fruta (ex: Banana nanica)</span><span class="text-sm text-gray-500 block">160g (~146 kcal)</span></div>
-                        <button onclick="showModal('fruta_lanche')" class="bg-orange-100 text-orange-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-orange-200 transition-colors">Ver Substituições</button>
+                     <li class="flex items-center">
+                        <div>
+                           <div class="flex items-center">
+                                <span class="font-semibold">Fruta (ex: Banana nanica)</span>
+                                <button onclick="showModal('fruta_lanche')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">160g</span> (~146 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Whey Protein</span><span class="text-sm text-gray-500 block">20g (~80 kcal)</span></div></li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Aveia em flocos</span><span class="text-sm text-gray-500 block">20g (~79 kcal)</span></div></li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Pasta de amendoim</span><span class="text-sm text-gray-500 block">20g (~123 kcal)</span></div></li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Creatina</span><span class="text-sm text-gray-500 block">5g</span></div></li>
+                    <li><div><span class="font-semibold">Whey Protein</span><span class="text-sm text-gray-500 block"><span class="font-semibold">20g</span> (~80 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Aveia em flocos</span><span class="text-sm text-gray-500 block"><span class="font-semibold">20g</span> (~79 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Pasta de amendoim</span><span class="text-sm text-gray-500 block"><span class="font-semibold">20g</span> (~123 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Creatina</span><span class="text-sm text-gray-500 block"><span class="font-semibold">5g</span></span></div></li>
                 </ul>
             </div>
+
             <!-- Jantar -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-                <h2 class="text-2xl font-semibold mb-4 text-indigo-600 border-b pb-2">Jantar (19:30)</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
+                <h2 class="flex justify-between items-baseline text-2xl font-semibold mb-4 text-indigo-600 border-b pb-2">
+                    <span>Jantar (19:30)</span>
+                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
+                </h2>
                  <ul class="space-y-4">
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Peito de frango cozido</span><span class="text-sm text-gray-500 block">90g (~147 kcal)</span></div>
-                        <button onclick="showModal('frango')" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-indigo-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="font-semibold">Peito de frango cozido</span>
+                                <button onclick="showModal('frango')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">90g</span> (~147 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Arroz branco cozido</span><span class="text-sm text-gray-500 block">100g (~128 kcal)</span></div>
-                        <button onclick="showModal('arroz')" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-indigo-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                           <div class="flex items-center">
+                                <span class="font-semibold">Arroz branco cozido</span>
+                                <button onclick="showModal('arroz')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">100g</span> (~128 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center">
-                        <div><span class="font-semibold">Fruta (ex: Abacaxi)</span><span class="text-sm text-gray-500 block">150g (~72 kcal)</span></div>
-                        <button onclick="showModal('fruta_almoco')" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full hover:bg-indigo-200 transition-colors">Ver Substituições</button>
+                    <li class="flex items-center">
+                        <div>
+                           <div class="flex items-center">
+                                <span class="font-semibold">Fruta (ex: Abacaxi)</span>
+                                <button onclick="showModal('fruta_almoco')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="text-sm text-gray-500 block"><span class="font-semibold">150g</span> (~72 kcal)</span>
+                        </div>
                     </li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Azeite de oliva extra virgem</span><span class="text-sm text-gray-500 block">7g (~62 kcal)</span></div></li>
-                    <li class="flex justify-between items-center"><div><span class="font-semibold">Salada de legumes no vapor e Alface</span><span class="text-sm text-gray-500 block">210g (~48 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Azeite de oliva extra virgem</span><span class="text-sm text-gray-500 block"><span class="font-semibold">7g</span> (~62 kcal)</span></div></li>
+                    <li><div><span class="font-semibold">Salada de legumes no vapor e Alface</span><span class="text-sm text-gray-500 block"><span class="font-semibold">210g</span> (~48 kcal)</span></div></li>
                 </ul>
             </div>
         </main>
@@ -141,7 +237,7 @@
             data.items.forEach(itemText => {
                 const li = document.createElement('li');
                 li.className = 'p-3 bg-gray-100 rounded-lg flex items-center';
-                li.innerHTML = `<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>${itemText}</span>`;
+                li.innerHTML = `<svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>${itemText}</span>`;
                 modalList.appendChild(li);
             });
             modalBackdrop.style.display = 'flex';
@@ -153,10 +249,40 @@
             setTimeout(() => { modalBackdrop.style.display = 'none'; }, 300);
         }
 
+        /**
+         * Calcula o total de calorias para cada refeição e exibe no título.
+         */
+        function calculateAndDisplayTotals() {
+            const mealCards = document.querySelectorAll('.meal-card');
+            const kcalRegex = /\(~(\d+)\s*kcal\)/;
+
+            mealCards.forEach(card => {
+                let totalKcal = 0;
+                const items = card.querySelectorAll('li');
+                
+                items.forEach(item => {
+                    // Checa o texto do item inteiro para encontrar as calorias
+                    const text = item.textContent;
+                    const match = text.match(kcalRegex);
+                    if (match && match[1]) {
+                        totalKcal += parseInt(match[1], 10);
+                    }
+                });
+
+                const totalKcalElement = card.querySelector('.meal-total-kcal');
+                if (totalKcalElement && totalKcal > 0) {
+                    totalKcalElement.textContent = `(~${totalKcal} kcal)`;
+                }
+            });
+        }
+
+        // --- EVENT LISTENERS ---
         window.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
         
+        // Calcula os totais quando o conteúdo da página estiver carregado
+        document.addEventListener('DOMContentLoaded', calculateAndDisplayTotals);
+        
         // --- CÓDIGO PWA ---
-        // Agora que a tag <base> está a ser usada, o caminho para 'sw.js' será resolvido corretamente.
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').then(registration => {
