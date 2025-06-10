@@ -3,308 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Define o URL base para todos os caminhos relativos -->
     <base href="/dieta/">
-
     <title>Plano Alimentar Interativo</title>
-    
-    <!-- Link para o Manifesto -->
     <link rel="manifest" href="manifest.json">
-    <!-- Cor do tema para o navegador no celular -->
-    <meta name="theme-color" content="#16a34a"/>
-    
+    <meta name="theme-color" content="#38A169"/>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .modal-backdrop { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 40; opacity: 0; transition: opacity 0.3s ease; }
-        .modal-content { transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-backdrop.flex { opacity: 1; }
-        .modal-backdrop.flex .modal-content { transform: scale(1); }
+        body { font-family: 'Inter', sans-serif; background-color: #F7FAFC; }
+        .modal-backdrop { 
+            display: none; position: fixed; top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 40; opacity: 0; 
+            transition: opacity 0.3s ease; 
+        }
+        .modal-content { 
+            transform: translateY(20px) scale(0.95); 
+            transition: transform 0.3s ease; 
+        }
+        .modal-backdrop.active { opacity: 1; }
+        .modal-backdrop.active .modal-content { transform: translateY(0) scale(1); }
+        .progress-bar { background-color: #F0FFF4; border-radius: 9999px; overflow: hidden; }
+        .progress-bar-inner { height: 100%; border-radius: 9999px; transition: width 0.5s ease-in-out; }
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+        }
+        .tab-btn.active {
+            background-color: #FFF;
+            border-color: #9AE6B4;
+            color: #2F855A;
+        }
+        .tab-btn:not(.active) {
+            background-color: transparent;
+            color: #718096;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .view-toggle-btn {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            color: #4A5568;
+            background-color: #E2E8F0;
+            transition: all 0.2s ease-in-out;
+        }
+        .view-toggle-btn.active {
+             background-color: #38A169;
+             color: #FFF;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-gray-800">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-green-700">Meu Plano Alimentar</h1>
-            <p class="text-gray-600 mt-2">Sua dieta diária com opções de substituições inteligentes.</p>
+    <div class="container mx-auto p-4 md:p-6 max-w-2xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-700">Meu Plano Alimentar</h1>
         </header>
 
-        <main class="space-y-8">
-            
-            <!-- Café da Manhã -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-green-600 border-b pb-2">
-                    <span>Café da Manhã (08:30)</span>
-                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
-                </h2>
-                <ul class="space-y-4">
-                    <li class="flex items-center">
-                        <div>
-                            <div class="flex items-center">
-                                <span class="font-semibold">Pão de forma integral</span>
-                                <button onclick="showModal('pao')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">2 unidades</span> (~104 kcal)</span>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div>
-                            <div class="flex items-center">
-                                <span class="font-semibold">Ovo inteiro cozido</span>
-                                <button onclick="showModal('ovo')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">1 unidade</span> (~80 kcal)</span>
-                        </div>
-                    </li>
-                    <li><div><span class="font-semibold">Requeijão cremoso</span><span class="text-sm text-gray-500 block"><span class="font-semibold">30g</span> (~77 kcal)</span></div></li>
-                    <li class="flex items-center">
-                        <div>
-                            <div class="flex items-center">
-                                <span class="font-semibold">Banana nanica</span>
-                                <button onclick="showModal('fruta_almoco')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">80g</span> (~73 kcal)</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <!-- Navegação por Abas -->
+        <nav class="p-1 mb-8 bg-green-100 rounded-lg flex justify-center space-x-2">
+            <button id="tab-dieta" class="tab-btn active" onclick="switchTab('dieta')">Dieta</button>
+            <button id="tab-analise" class="tab-btn" onclick="switchTab('analise')">Análise</button>
+        </nav>
 
-            <!-- Almoço -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                 <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-yellow-600 border-b pb-2">
-                    <span>Almoço (12:30)</span>
-                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
-                </h2>
-                <ul class="space-y-4">
-                    <li class="flex items-center">
-                        <div>
-                            <div class="flex items-center">
-                                <span class="font-semibold">Peito de frango cozido</span>
-                                <button onclick="showModal('frango')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">90g</span> (~147 kcal)</span>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div>
-                           <div class="flex items-center">
-                                <span class="font-semibold">Arroz branco cozido</span>
-                                <button onclick="showModal('arroz')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">100g</span> (~128 kcal)</span>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div>
-                           <div class="flex items-center">
-                                <span class="font-semibold">Fruta (ex: Abacaxi)</span>
-                                <button onclick="showModal('fruta_almoco')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">150g</span> (~72 kcal)</span>
-                        </div>
-                    </li>
-                    <li><div><span class="font-semibold">Azeite de oliva extra virgem</span><span class="text-sm text-gray-500 block"><span class="font-semibold">7g</span> (~62 kcal)</span></div></li>
-                    <li><div><span class="font-semibold">Salada de legumes no vapor e Alface</span><span class="text-sm text-gray-500 block"><span class="font-semibold">210g</span> (~48 kcal)</span></div></li>
-                </ul>
+        <!-- Conteúdo das Abas -->
+        <main>
+            <div id="content-dieta" class="tab-content active">
+                <div id="meals-container" class="space-y-8">
+                    <!-- As refeições serão inseridas aqui pelo JavaScript -->
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 09/06/2025</p>
             </div>
-
-            <!-- Lanche da Tarde -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-orange-600 border-b pb-2">
-                    <span>Lanche da Tarde (15:30)</span>
-                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
-                </h2>
-                <ul class="space-y-4">
-                     <li class="flex items-center">
-                        <div>
-                           <div class="flex items-center">
-                                <span class="font-semibold">Banana nanica</span>
-                                <button onclick="showModal('fruta_lanche')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">160g</span> (~146 kcal)</span>
-                        </div>
-                    </li>
-                    <li><div><span class="font-semibold">Whey Protein</span><span class="text-sm text-gray-500 block"><span class="font-semibold">20g</span> (~80 kcal)</span></div></li>
-                    <li><div><span class="font-semibold">Aveia em flocos</span><span class="text-sm text-gray-500 block"><span class="font-semibold">20g</span> (~79 kcal)</span></div></li>
-                    <li><div><span class="font-semibold">Pasta de amendoim</span><span class="text-sm text-gray-500 block"><span class="font-semibold">20g</span> (~123 kcal)</span></div></li>
-                    <li><div><span class="font-semibold">Creatina</span><span class="text-sm text-gray-500 block"><span class="font-semibold">5g</span></span></div></li>
-                </ul>
-            </div>
-
-            <!-- Jantar -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 meal-card">
-                <h2 class="flex justify-between items-baseline text-xl font-semibold mb-4 text-indigo-600 border-b pb-2">
-                    <span>Jantar (19:30)</span>
-                    <span class="meal-total-kcal text-lg font-normal text-gray-500"></span>
-                </h2>
-                 <ul class="space-y-4">
-                    <li class="flex items-center">
-                        <div>
-                            <div class="flex items-center">
-                                <span class="font-semibold">Peito de frango cozido</span>
-                                <button onclick="showModal('frango')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">90g</span> (~147 kcal)</span>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div>
-                           <div class="flex items-center">
-                                <span class="font-semibold">Arroz branco cozido</span>
-                                <button onclick="showModal('arroz')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">100g</span> (~128 kcal)</span>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div>
-                           <div class="flex items-center">
-                                <span class="font-semibold">Fruta (ex: Abacaxi)</span>
-                                <button onclick="showModal('fruta_almoco')" title="Ver Substituições" class="ml-2 p-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="text-sm text-gray-500 block"><span class="font-semibold">150g</span> (~72 kcal)</span>
-                        </div>
-                    </li>
-                    <li><div><span class="font-semibold">Azeite de oliva extra virgem</span><span class="text-sm text-gray-500 block"><span class="font-semibold">7g</span> (~62 kcal)</span></div></li>
-                    <li><div><span class="font-semibold">Salada de legumes no vapor e Alface</span><span class="text-sm text-gray-500 block"><span class="font-semibold">210g</span> (~48 kcal)</span></div></li>
-                </ul>
+            <div id="content-analise" class="tab-content">
+                <div id="analysis-dashboard" class="space-y-6">
+                    <!-- Dashboard de Análise será inserido aqui -->
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 09/06/2025</p>
             </div>
         </main>
     </div>
 
-    <!-- Modal -->
-    <div id="modal-backdrop" class="modal-backdrop items-center justify-center" onclick="closeModal()">
-        <div id="modal-content" class="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded-2xl shadow-2xl p-6 md:p-8" onclick="event.stopPropagation()">
-            <h3 id="modal-title" class="text-2xl font-bold text-gray-800 mb-5">Substituições</h3>
-            <ul id="modal-list" class="space-y-3 text-gray-700"></ul>
-            <button onclick="closeModal()" class="mt-6 w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all">Fechar</button>
+    <!-- Modal de Substituições -->
+    <div id="substitutions-modal" class="modal-backdrop flex items-center justify-center" onclick="closeModal('substitutions-modal')">
+        <div class="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-xl p-6" onclick="event.stopPropagation()">
+            <h3 id="substitutions-modal-title" class="text-xl font-bold text-gray-800 mb-5">Substituições</h3>
+            <ul id="substitutions-modal-list" class="space-y-3 text-gray-700"></ul>
+            <button onclick="closeModal('substitutions-modal')" class="mt-6 w-full bg-gray-200 text-gray-700 py-2.5 rounded-lg font-semibold hover:bg-gray-300 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Fechar</button>
         </div>
     </div>
 
+    <!-- Modal de Informações Nutricionais -->
+    <div id="info-modal" class="modal-backdrop flex items-center justify-center" onclick="closeModal('info-modal')">
+        <div class="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-xl p-6 text-center" onclick="event.stopPropagation()">
+            <h3 id="info-modal-title" class="text-xl font-bold text-gray-800 mb-4"></h3>
+            <p id="info-modal-total-kcal" class="text-3xl font-bold text-green-600 mb-6"></p>
+            <div id="info-modal-macros" class="space-y-4 text-left"></div>
+            <button onclick="closeModal('info-modal')" class="mt-8 w-full bg-gray-200 text-gray-700 py-2.5 rounded-lg font-semibold hover:bg-gray-300 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Fechar</button>
+        </div>
+    </div>
 
     <script>
-        const substitutions = {
-            pao: { title: 'Substituições para Pão (~104 kcal)', items: [ 'Tapioca (massa pronta): 40g', 'Batata doce cozida: 120g', 'Cuscuz de milho cozido: 45g', 'Crepioca (1 ovo + 2 col. de tapioca)', ] },
-            ovo: { title: 'Substituições para Ovo (~80 kcal)', items: [ 'Tofu firme: 100g', 'Queijo Cottage: 80g', 'Iogurte Grego natural (sem açúcar): 120g', '4 Claras de ovo', ] },
-            frango: { title: 'Substituições para Frango (~147 kcal)', items: [ 'Filé de Tilápia ou Pescada Branca: 150g', 'Carne bovina magra (patinho moído): 100g', 'Ovos inteiros cozidos: 2 unidades', 'Lentilha cozida: 200g', ] },
-            arroz: { title: 'Substituições para Arroz (~128 kcal)', items: [ 'Macarrão cozido: 100g', 'Batata inglesa cozida: 160g', 'Quinoa cozida: 100g', 'Mandioquinha (batata baroa) cozida: 140g', 'Inhame cozido: 110g', 'Cará cozido: 165g', 'Milho verde cozido: 130g' ] },
-            fruta_lanche: { title: 'Substituições para Fruta (~146 kcal)', items: [ 'Maçã Fuji ou Gala: 250g (2 unidades pequenas)', 'Mamão Papaya: 300g (1 unidade pequena)', 'Uvas: 200g', 'Manga Palmer: 220g', 'Abacate: 90g (meio abacate pequeno)', 'Açaí (polpa pura, sem açúcar): 240g', 'Caqui: 210g (1 unidade grande)', 'Banana prata: 165g (1 e 1/2 unidade)' ] },
-            fruta_almoco: { title: 'Substituições para Fruta (~72 kcal)', items: [ 'Laranja: 150g (1 unidade média)', 'Kiwi: 120g (2 unidades pequenas)', 'Morangos: 220g', 'Melão: 250g', 'Pêra: 125g (1 unidade média)', 'Ameixa vermelha: 155g (cerca de 3 unidades)', 'Goiaba: 105g (1 unidade pequena)', 'Pêssego: 185g (2 unidades médias)' ] }
+        const dietData = {
+            meals: [
+                { id: 'cafe', name: 'Café da Manhã', time: '08:30', items: ['pao', 'ovo', 'requeijao', 'banana_cafe'] },
+                { id: 'almoco', name: 'Almoço', time: '12:30', items: ['frango_almoco', 'arroz_almoco', 'fruta_almoco', 'azeite', 'salada'] },
+                { id: 'lanche', name: 'Lanche da Tarde', time: '15:30', items: ['banana_lanche', 'whey', 'aveia', 'amendoim', 'creatina'] },
+                { id: 'jantar', name: 'Jantar', time: '19:30', items: ['frango_jantar', 'arroz_jantar', 'fruta_jantar', 'azeite_jantar', 'salada_jantar'] }
+            ],
+            foods: {
+                'pao': { name: 'Pão de forma integral', quantity: '2 unidades', kcal: 104, carbs: 20, protein: 5, fat: 1, subs: 'pao' },
+                'ovo': { name: 'Ovo inteiro cozido', quantity: '1 unidade', kcal: 80, carbs: 1, protein: 6, fat: 5, subs: 'ovo' },
+                'requeijao': { name: 'Requeijão cremoso', quantity: '30g', kcal: 77, carbs: 1, protein: 2, fat: 7, subs: 'requeijao' },
+                'banana_cafe': { name: 'Banana nanica', quantity: '80g', kcal: 73, carbs: 18, protein: 1, fat: 0, subs: 'fruta_almoco' },
+                'frango_almoco': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'frango' },
+                'arroz_almoco': { name: 'Arroz branco cozido', quantity: '100g', kcal: 128, carbs: 28, protein: 3, fat: 0, subs: 'arroz' },
+                'fruta_almoco': { name: 'Abacaxi', quantity: '150g', kcal: 72, carbs: 19, protein: 1, fat: 0, subs: 'fruta_almoco' },
+                'azeite': { name: 'Azeite de oliva extra virgem', quantity: '7g', kcal: 62, carbs: 0, protein: 0, fat: 7, subs: null },
+                'salada': { name: 'Salada de legumes e Alface', quantity: '210g', kcal: 48, carbs: 10, protein: 2, fat: 0, subs: null },
+                'banana_lanche': { name: 'Banana nanica', quantity: '160g', kcal: 146, carbs: 36, protein: 2, fat: 0, subs: 'fruta_lanche' },
+                'whey': { name: 'Whey Protein', quantity: '20g', kcal: 80, carbs: 2, protein: 15, fat: 1, subs: null },
+                'aveia': { name: 'Aveia em flocos', quantity: '20g', kcal: 79, carbs: 13, protein: 3, fat: 2, subs: null },
+                'amendoim': { name: 'Pasta de amendoim', quantity: '20g', kcal: 123, carbs: 4, protein: 5, fat: 10, subs: 'amendoim' },
+                'creatina': { name: 'Creatina', quantity: '5g', kcal: 0, carbs: 0, protein: 0, fat: 0, subs: null },
+                'frango_jantar': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'frango' },
+                'arroz_jantar': { name: 'Arroz branco cozido', quantity: '100g', kcal: 128, carbs: 28, protein: 3, fat: 0, subs: 'arroz' },
+                'fruta_jantar': { name: 'Abacaxi', quantity: '150g', kcal: 72, carbs: 19, protein: 1, fat: 0, subs: 'fruta_almoco' },
+                'azeite_jantar': { name: 'Azeite de oliva', quantity: '7g', kcal: 62, carbs: 0, protein: 0, fat: 7, subs: null },
+                'salada_jantar': { name: 'Salada de legumes e Alface', quantity: '210g', kcal: 48, carbs: 10, protein: 2, fat: 0, subs: null },
+            },
+            substitutions: {
+                pao: { title: 'Substituições para Pão (~104 kcal)', items: [ 'Tapioca (massa pronta): 40g', 'Batata doce cozida: 120g', 'Cuscuz de milho cozido: 45g', 'Crepioca (1 ovo + 2 col. de tapioca)', ] },
+                ovo: { title: 'Substituições para Ovo (~80 kcal)', items: [ 'Frango desfiado: 50g', 'Atum em água (conserva): 70g', 'Tofu firme: 100g', 'Queijo Cottage: 80g', 'Iogurte Grego natural (sem açúcar): 120g' ] },
+                requeijao: { title: 'Substituições para Requeijão (~77 kcal)', items: ['Ricota: 50g', 'Abacate: 45g', 'Cream Cheese: 25g'] },
+                amendoim: { title: 'Substituições para Pasta de Amendoim (~123 kcal)', items: ['Pasta de amêndoas: 20g', 'Mix de castanhas: 20g', 'Sementes de girassol: 20g']},
+                frango: { title: 'Substituições para Frango (~147 kcal)', items: [ 'Filé de Tilápia ou Pescada Branca: 150g', 'Carne bovina magra (patinho moído): 100g', 'Ovos inteiros cozidos: 2 unidades', 'Lentilha cozida: 200g', ] },
+                arroz: { title: 'Substituições para Arroz (~128 kcal)', items: [ 'Macarrão cozido: 100g', 'Batata inglesa cozida: 160g', 'Quinoa cozida: 100g', 'Mandioquinha (batata baroa) cozida: 140g', 'Inhame cozido: 110g', 'Cará cozido: 165g', 'Milho verde cozido: 130g' ] },
+                fruta_lanche: { title: 'Substituições para Fruta (~146 kcal)', items: [ 'Maçã Fuji ou Gala: 250g (2 unidades pequenas)', 'Mamão Papaya: 300g (1 unidade pequena)', 'Uvas: 200g', 'Uva Passa: 50g', 'Manga Palmer: 220g', 'Abacate: 90g (meio abacate pequeno)', 'Açaí (polpa pura, sem açúcar): 240g' ] },
+                fruta_almoco: { title: 'Substituições para Fruta (~73 kcal)', items: [ 'Laranja: 150g (1 unidade média)', 'Kiwi: 120g (2 unidades pequenas)', 'Morangos: 220g', 'Melão: 250g', 'Uva Passa: 25g', 'Pêra: 125g (1 unidade média)' ] }
+            }
         };
 
-        const modalBackdrop = document.getElementById('modal-backdrop');
-        const modalTitle = document.getElementById('modal-title');
-        const modalList = document.getElementById('modal-list');
+        // --- GLOBAL STATE FOR ANALYSIS ---
+        let analysisState = {
+            summaryView: 'g', // 'g', '%', or 'kcal'
+            userWeight: 80 // default weight
+        };
 
-        function showModal(foodKey) {
-            const data = substitutions[foodKey];
+        function renderMeals() {
+            const container = document.getElementById('meals-container');
+            container.innerHTML = '';
+            dietData.meals.forEach(meal => {
+                const mealCard = document.createElement('div');
+                mealCard.className = 'bg-white p-5 rounded-xl shadow-md border border-gray-200/80';
+                let itemsHtml = '';
+                meal.items.forEach(foodId => {
+                    const food = dietData.foods[foodId];
+                    const subsButtonHtml = food.subs 
+                        ? `<button onclick="showSubstitutionsModal('${food.subs}')" title="Ver Substituições" class="flex-shrink-0 ml-4 w-8 h-8 flex items-center justify-center rounded-full bg-green-100 text-green-700 hover:bg-green-200 transition-colors focus:outline-none">
+                               <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" /></svg>
+                           </button>` 
+                        : '<div class="w-8 h-8 ml-4"></div>';
+                    itemsHtml += `
+                        <div class="flex items-center justify-between bg-gray-50 border border-gray-200/80 rounded-lg p-3">
+                            <div>
+                                <p class="font-semibold text-gray-700">${food.name}</p>
+                                <p class="text-sm text-gray-500"><span class="font-semibold">${food.quantity}</span> (~${food.kcal} kcal)</p>
+                            </div>
+                            ${subsButtonHtml}
+                        </div>`;
+                });
+                mealCard.innerHTML = `
+                    <header class="flex justify-between items-center mb-4 pb-3 border-b border-gray-200/80">
+                        <h2 class="text-lg font-bold text-green-700">${meal.name} (${meal.time})</h2>
+                        <button onclick="showInfoModal('${meal.id}')" title="Ver detalhes nutricionais" class="p-1.5 rounded-full text-green-500 hover:bg-green-100 hover:text-green-700 transition-colors">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </button>
+                    </header>
+                    <div class="space-y-3">${itemsHtml}</div>`;
+                container.appendChild(mealCard);
+            });
+        }
+
+        function renderAnalysisDashboard() {
+            const container = document.getElementById('analysis-dashboard');
+            container.innerHTML = `
+                <!-- Resumo Card -->
+                <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold text-green-700">Resumo</h2>
+                        <div id="summary-view-toggle" class="flex items-center space-x-1 bg-gray-200 rounded-lg p-0.5">
+                            <button class="view-toggle-btn active" onclick="updateSummaryView('g')">g</button>
+                            <button class="view-toggle-btn" onclick="updateSummaryView('%')">%</button>
+                            <button class="view-toggle-btn" onclick="updateSummaryView('kcal')">kcal</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-green-50 p-3 rounded-lg"><p class="text-sm text-green-800 font-semibold">Calorias</p><p id="summary-kcal" class="text-2xl font-bold text-green-600"></p></div>
+                        <div class="bg-blue-50 p-3 rounded-lg"><p class="text-sm text-blue-800 font-semibold">Carboidratos</p><p id="summary-carbs" class="text-2xl font-bold text-blue-600"></p></div>
+                        <div class="bg-red-50 p-3 rounded-lg"><p class="text-sm text-red-800 font-semibold">Proteínas</p><p id="summary-protein" class="text-2xl font-bold text-red-600"></p></div>
+                        <div class="bg-yellow-50 p-3 rounded-lg"><p class="text-sm text-yellow-800 font-semibold">Gorduras</p><p id="summary-fat" class="text-2xl font-bold text-yellow-600"></p></div>
+                    </div>
+                </div>
+
+                <!-- Macros por Peso Card -->
+                <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold text-green-700">Macros por Peso</h2>
+                        <div class="flex items-center space-x-2">
+                           <input type="number" id="user-weight-input" value="${analysisState.userWeight}" oninput="updateMacrosByWeight(this.value)" class="w-20 text-right font-semibold p-1 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-400 focus:border-transparent outline-none">
+                           <span class="font-semibold text-gray-600">kg</span>
+                        </div>
+                    </div>
+                     <div class="grid grid-cols-3 gap-4 text-center">
+                        <div class="bg-blue-50 p-3 rounded-lg"><p class="text-sm text-blue-800 font-semibold">Carboidratos</p><p id="g-per-kg-carbs" class="text-2xl font-bold text-blue-600"></p></div>
+                        <div class="bg-red-50 p-3 rounded-lg"><p class="text-sm text-red-800 font-semibold">Proteínas</p><p id="g-per-kg-protein" class="text-2xl font-bold text-red-600"></p></div>
+                        <div class="bg-yellow-50 p-3 rounded-lg"><p class="text-sm text-yellow-800 font-semibold">Gorduras</p><p id="g-per-kg-fat" class="text-2xl font-bold text-yellow-600"></p></div>
+                    </div>
+                </div>
+
+                <!-- Distribuição de Macros Card -->
+                <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
+                    <h2 class="text-lg font-bold text-green-700 mb-4">Distribuição de Macros</h2>
+                    <div id="macro-distribution-bars" class="space-y-4"></div>
+                </div>
+
+                <!-- Calorias por Refeição Card -->
+                <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
+                    <h2 class="text-lg font-bold text-green-700 mb-4">Calorias por Refeição</h2>
+                    <div id="meal-breakdown-bars" class="space-y-4"></div>
+                </div>
+            `;
+            
+            // Initial calculations and renders
+            const totals = calculateAllTotals();
+            updateSummaryView(analysisState.summaryView, totals);
+            updateMacrosByWeight(analysisState.userWeight, totals);
+            renderMacroDistribution(totals);
+            renderMealBreakdown(totals);
+        }
+        
+        function calculateAllTotals() {
+            let totalKcal = 0, totalCarbs = 0, totalProtein = 0, totalFat = 0;
+            Object.values(dietData.foods).forEach(food => {
+                totalKcal += food.kcal;
+                totalCarbs += food.carbs;
+                totalProtein += food.protein;
+                totalFat += food.fat;
+            });
+            return { totalKcal, totalCarbs, totalProtein, totalFat };
+        }
+
+        function updateSummaryView(view, totals) {
+            analysisState.summaryView = view;
+            document.querySelectorAll('#summary-view-toggle button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#summary-view-toggle button[onclick="updateSummaryView('${view}')"]`).classList.add('active');
+            
+            const { totalKcal, totalCarbs, totalProtein, totalFat } = totals || calculateAllTotals();
+            document.getElementById('summary-kcal').textContent = totalKcal;
+            
+            const carbKcal = totalCarbs * 4, proteinKcal = totalProtein * 4, fatKcal = totalFat * 9;
+            const totalMacroKcal = carbKcal + proteinKcal + fatKcal;
+
+            switch(view) {
+                case 'g':
+                    document.getElementById('summary-carbs').textContent = `${totalCarbs.toFixed(0)}g`;
+                    document.getElementById('summary-protein').textContent = `${totalProtein.toFixed(0)}g`;
+                    document.getElementById('summary-fat').textContent = `${totalFat.toFixed(0)}g`;
+                    break;
+                case '%':
+                    document.getElementById('summary-carbs').textContent = `${totalMacroKcal > 0 ? ((carbKcal / totalMacroKcal) * 100).toFixed(0) : 0}%`;
+                    document.getElementById('summary-protein').textContent = `${totalMacroKcal > 0 ? ((proteinKcal / totalMacroKcal) * 100).toFixed(0) : 0}%`;
+                    document.getElementById('summary-fat').textContent = `${totalMacroKcal > 0 ? ((fatKcal / totalMacroKcal) * 100).toFixed(0) : 0}%`;
+                    break;
+                case 'kcal':
+                    document.getElementById('summary-carbs').textContent = `${carbKcal.toFixed(0)}`;
+                    document.getElementById('summary-protein').textContent = `${proteinKcal.toFixed(0)}`;
+                    document.getElementById('summary-fat').textContent = `${fatKcal.toFixed(0)}`;
+                    break;
+            }
+        }
+        
+        function updateMacrosByWeight(weight, totals) {
+            analysisState.userWeight = parseFloat(weight) || 0;
+            const { totalCarbs, totalProtein, totalFat } = totals || calculateAllTotals();
+            
+            if (analysisState.userWeight > 0) {
+                 document.getElementById('g-per-kg-carbs').textContent = `${(totalCarbs / analysisState.userWeight).toFixed(2)}`;
+                 document.getElementById('g-per-kg-protein').textContent = `${(totalProtein / analysisState.userWeight).toFixed(2)}`;
+                 document.getElementById('g-per-kg-fat').textContent = `${(totalFat / analysisState.userWeight).toFixed(2)}`;
+            }
+        }
+
+        function renderMacroDistribution(totals) {
+            const container = document.getElementById('macro-distribution-bars');
+            const { totalCarbs, totalProtein, totalFat } = totals || calculateAllTotals();
+            
+            const carbKcal = totalCarbs * 4, proteinKcal = totalProtein * 4, fatKcal = totalFat * 9;
+            const totalMacroKcal = carbKcal + proteinKcal + fatKcal;
+            
+            const carbPercent = totalMacroKcal > 0 ? (carbKcal / totalMacroKcal * 100).toFixed(0) : 0;
+            const proteinPercent = totalMacroKcal > 0 ? (proteinKcal / totalMacroKcal * 100).toFixed(0) : 0;
+            const fatPercent = totalMacroKcal > 0 ? (fatKcal / totalMacroKcal * 100).toFixed(0) : 0;
+
+            container.innerHTML = `
+                <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Carboidratos</span><span class="text-sm text-gray-500">${totalCarbs.toFixed(0)}g (~${carbKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-blue-500" style="width: ${carbPercent}%;"><span class="text-xs font-bold text-white pl-2">${carbPercent}%</span></div></div></div>
+                <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Proteínas</span><span class="text-sm text-gray-500">${totalProtein.toFixed(0)}g (~${proteinKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-red-500" style="width: ${proteinPercent}%;"><span class="text-xs font-bold text-white pl-2">${proteinPercent}%</span></div></div></div>
+                <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Gorduras</span><span class="text-sm text-gray-500">${totalFat.toFixed(0)}g (~${fatKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-yellow-500" style="width: ${fatPercent}%;"><span class="text-xs font-bold text-white pl-2">${fatPercent}%</span></div></div></div>
+            `;
+        }
+
+        function renderMealBreakdown(totals) {
+            const container = document.getElementById('meal-breakdown-bars');
+            container.innerHTML = '';
+            const { totalKcal } = totals || calculateAllTotals();
+
+            dietData.meals.forEach(meal => {
+                let mealKcal = 0;
+                meal.items.forEach(foodId => {
+                    mealKcal += dietData.foods[foodId].kcal;
+                });
+                const percentage = totalKcal > 0 ? ((mealKcal / totalKcal) * 100).toFixed(0) : 0;
+
+                const mealDiv = document.createElement('div');
+                mealDiv.innerHTML = `
+                    <div class="flex justify-between items-baseline mb-1">
+                        <span class="font-semibold text-gray-700">${meal.name}</span>
+                        <span class="text-sm text-gray-500">${mealKcal} kcal</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner bg-green-500" style="width: ${percentage}%;">
+                            <span class="text-xs font-bold text-white pl-2">${percentage}%</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(mealDiv);
+            });
+        }
+        
+        function showSubstitutionsModal(subsKey) {
+            const data = dietData.substitutions[subsKey];
             if (!data) return;
-            modalTitle.textContent = data.title;
-            modalList.innerHTML = '';
+            const modal = document.getElementById('substitutions-modal');
+            const titleEl = document.getElementById('substitutions-modal-title');
+            const listEl = document.getElementById('substitutions-modal-list');
+            titleEl.textContent = data.title;
+            listEl.innerHTML = '';
             data.items.forEach(itemText => {
                 const li = document.createElement('li');
                 li.className = 'p-3 bg-gray-100 rounded-lg flex items-center';
-                li.innerHTML = `<svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>${itemText}</span>`;
-                modalList.appendChild(li);
+                li.innerHTML = `<svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>${itemText}</span>`;
+                listEl.appendChild(li);
             });
-            modalBackdrop.style.display = 'flex';
-            setTimeout(() => { modalBackdrop.classList.add('flex'); }, 10);
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
         }
 
-        function closeModal() {
-            modalBackdrop.classList.remove('flex');
-            setTimeout(() => { modalBackdrop.style.display = 'none'; }, 300);
-        }
-
-        /**
-         * Calcula o total de calorias para cada refeição e exibe no título.
-         */
-        function calculateAndDisplayTotals() {
-            const mealCards = document.querySelectorAll('.meal-card');
-            const kcalRegex = /\(~(\d+)\s*kcal\)/;
-
-            mealCards.forEach(card => {
-                let totalKcal = 0;
-                const items = card.querySelectorAll('li');
-                
-                items.forEach(item => {
-                    // Checa o texto do item inteiro para encontrar as calorias
-                    const text = item.textContent;
-                    const match = text.match(kcalRegex);
-                    if (match && match[1]) {
-                        totalKcal += parseInt(match[1], 10);
-                    }
-                });
-
-                const totalKcalElement = card.querySelector('.meal-total-kcal');
-                if (totalKcalElement && totalKcal > 0) {
-                    totalKcalElement.textContent = `(~${totalKcal} kcal)`;
-                }
+        function showInfoModal(mealId) {
+            const meal = dietData.meals.find(m => m.id === mealId);
+            if (!meal) return;
+            let totalKcal = 0, totalCarbs = 0, totalProtein = 0, totalFat = 0;
+            meal.items.forEach(foodId => {
+                const food = dietData.foods[foodId];
+                totalKcal += food.kcal; totalCarbs += food.carbs; totalProtein += food.protein; totalFat += food.fat;
             });
+            const carbKcal = totalCarbs * 4, proteinKcal = totalProtein * 4, fatKcal = totalFat * 9;
+            const totalMacroKcal = carbKcal + proteinKcal + fatKcal;
+            const carbPercent = totalMacroKcal > 0 ? (carbKcal / totalMacroKcal * 100).toFixed(0) : 0;
+            const proteinPercent = totalMacroKcal > 0 ? (proteinKcal / totalMacroKcal * 100).toFixed(0) : 0;
+            const fatPercent = totalMacroKcal > 0 ? (fatKcal / totalMacroKcal * 100).toFixed(0) : 0;
+            const modal = document.getElementById('info-modal');
+            document.getElementById('info-modal-title').textContent = `${meal.name} - Detalhes`;
+            document.getElementById('info-modal-total-kcal').textContent = `~${totalKcal} kcal`;
+            document.getElementById('info-modal-macros').innerHTML = `
+                <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Carboidratos</span><span class="text-sm text-gray-500">${totalCarbs.toFixed(0)}g (~${carbKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-blue-500" style="width: ${carbPercent}%;"><span class="text-xs font-bold text-white pl-2">${carbPercent}%</span></div></div></div>
+                <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Proteínas</span><span class="text-sm text-gray-500">${totalProtein.toFixed(0)}g (~${proteinKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-red-500" style="width: ${proteinPercent}%;"><span class="text-xs font-bold text-white pl-2">${proteinPercent}%</span></div></div></div>
+                <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Gorduras</span><span class="text-sm text-gray-500">${totalFat.toFixed(0)}g (~${fatKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-yellow-500" style="width: ${fatPercent}%;"><span class="text-xs font-bold text-white pl-2">${fatPercent}%</span></div></div></div>`;
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
         }
 
-        // --- EVENT LISTENERS ---
-        window.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            document.getElementById(`content-${tabName}`).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMeals();
+            renderAnalysisDashboard();
+        });
+
+        window.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('substitutions-modal'); closeModal('info-modal'); } });
         
-        // Calcula os totais quando o conteúdo da página estiver carregado
-        document.addEventListener('DOMContentLoaded', calculateAndDisplayTotals);
-        
-        // --- CÓDIGO PWA ---
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').then(registration => {
-              console.log('ServiceWorker registrado com sucesso: ', registration.scope);
-            }, err => {
-              console.log('Registro do ServiceWorker falhou: ', err);
-            });
+            navigator.serviceWorker.register('sw.js').then(r => console.log('ServiceWorker registrado', r.scope), e => console.log('Registro do ServiceWorker falhou', e));
           });
         }
     </script>
-
 </body>
 </html>
