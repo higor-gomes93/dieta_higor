@@ -1,8 +1,8 @@
 {
   "name": "Meu Plano Alimentar",
   "short_name": "Dieta",
-  "scope": "/dieta/",
-  "start_url": "/dieta/",
+  "scope": "/dieta_higor/",
+  "start_url": "/dieta_higor/",
   "display": "standalone",
   "background_color": "#f9fafb",
   "theme_color": "#16a34a",
