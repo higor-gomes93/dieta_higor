@@ -70,30 +70,25 @@
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-800">Meu Plano Alimentar</h1>
         </header>
 
-        <!-- Navegação por Abas -->
         <nav class="p-1 mb-8 bg-green-100 rounded-lg flex justify-center space-x-2">
             <button id="tab-dieta" class="tab-btn active" onclick="switchTab('dieta')">Dieta</button>
             <button id="tab-analise" class="tab-btn" onclick="switchTab('analise')">Análise</button>
         </nav>
 
-        <!-- Conteúdo das Abas -->
         <main>
             <div id="content-dieta" class="tab-content active">
                 <div id="meals-container" class="space-y-8">
-                    <!-- As refeições serão inseridas aqui pelo JavaScript -->
-                </div>
-                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 09/06/2025</p>
+                    </div>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 06/07/2025</p>
             </div>
             <div id="content-analise" class="tab-content">
                 <div id="analysis-dashboard" class="space-y-6">
-                    <!-- Dashboard de Análise será inserido aqui -->
-                </div>
-                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 09/06/2025</p>
+                    </div>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 06/07/2025</p>
             </div>
         </main>
     </div>
 
-    <!-- Modal de Substituições -->
     <div id="substitutions-modal" class="modal-backdrop flex items-center justify-center" onclick="closeModal('substitutions-modal')">
         <div class="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-xl p-6" onclick="event.stopPropagation()">
             <h3 id="substitutions-modal-title" class="text-xl font-bold text-gray-800 mb-5">Substituições</h3>
@@ -102,7 +97,6 @@
         </div>
     </div>
 
-    <!-- Modal de Informações Nutricionais -->
     <div id="info-modal" class="modal-backdrop flex items-center justify-center" onclick="closeModal('info-modal')">
         <div class="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-xl p-6 text-center" onclick="event.stopPropagation()">
             <h3 id="info-modal-title" class="text-xl font-bold text-gray-800 mb-4"></h3>
@@ -116,7 +110,7 @@
         const dietData = {
             meals: [
                 { id: 'cafe', name: 'Café da Manhã', time: '08:30', items: ['pao', 'ovo', 'requeijao', 'banana_cafe'] },
-                { id: 'almoco', name: 'Almoço', time: '12:30', items: ['frango_almoco', 'arroz_almoco', 'fruta_almoco', 'azeite', 'salada'] },
+                { id: 'almoco', name: 'Almoço', time: '12:30', items: ['lentilha', 'arroz_almoco', 'fruta_almoco', 'azeite', 'salada'] },
                 { id: 'lanche', name: 'Lanche da Tarde', time: '15:30', items: ['banana_lanche', 'whey', 'aveia', 'amendoim', 'creatina'] },
                 { id: 'jantar', name: 'Jantar', time: '19:30', items: ['frango_jantar', 'arroz_jantar', 'fruta_jantar', 'azeite_jantar', 'salada_jantar'] }
             ],
@@ -125,7 +119,7 @@
                 'ovo': { name: 'Ovo inteiro cozido', quantity: '1 unidade', kcal: 80, carbs: 1, protein: 6, fat: 5, subs: 'ovo' },
                 'requeijao': { name: 'Requeijão cremoso', quantity: '30g', kcal: 77, carbs: 1, protein: 2, fat: 7, subs: 'requeijao' },
                 'banana_cafe': { name: 'Banana nanica', quantity: '80g', kcal: 73, carbs: 18, protein: 1, fat: 0, subs: 'fruta_almoco' },
-                'frango_almoco': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'frango' },
+                'lentilha': { name: 'Lentilha cozida', quantity: '200g', kcal: 186, carbs: 32.6, protein: 12.6, fat: 1, subs: 'lentilha' },
                 'arroz_almoco': { name: 'Arroz branco cozido', quantity: '100g', kcal: 128, carbs: 28, protein: 3, fat: 0, subs: 'arroz' },
                 'fruta_almoco': { name: 'Abacaxi', quantity: '150g', kcal: 72, carbs: 19, protein: 1, fat: 0, subs: 'fruta_almoco' },
                 'azeite': { name: 'Azeite de oliva extra virgem', quantity: '7g', kcal: 62, carbs: 0, protein: 0, fat: 7, subs: null },
@@ -135,21 +129,21 @@
                 'aveia': { name: 'Aveia em flocos', quantity: '20g', kcal: 79, carbs: 13, protein: 3, fat: 2, subs: null },
                 'amendoim': { name: 'Pasta de amendoim', quantity: '20g', kcal: 123, carbs: 4, protein: 5, fat: 10, subs: 'amendoim' },
                 'creatina': { name: 'Creatina', quantity: '5g', kcal: 0, carbs: 0, protein: 0, fat: 0, subs: null },
-                'frango_jantar': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'frango' },
+                'frango_jantar': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'lentilha' },
                 'arroz_jantar': { name: 'Arroz branco cozido', quantity: '100g', kcal: 128, carbs: 28, protein: 3, fat: 0, subs: 'arroz' },
                 'fruta_jantar': { name: 'Abacaxi', quantity: '150g', kcal: 72, carbs: 19, protein: 1, fat: 0, subs: 'fruta_almoco' },
                 'azeite_jantar': { name: 'Azeite de oliva', quantity: '7g', kcal: 62, carbs: 0, protein: 0, fat: 7, subs: null },
-                'salada_jantar': { name: 'Salada de legumes e Alface', quantity: '210g', kcal: 48, carbs: 10, protein: 2, fat: 0, subs: null },
+                'salada_jantar': { name: 'Salada de legumes e Alface', quantity: '210g', kcal: 48, carbs: 10, protein: 2, fat: 0, subs: null }
             },
             substitutions: {
-                pao: { title: 'Substituições para Pão (~104 kcal)', items: [ 'Tapioca (massa pronta): 40g', 'Batata doce cozida: 120g', 'Cuscuz de milho cozido: 45g', 'Crepioca (1 ovo + 2 col. de tapioca)', ] },
-                ovo: { title: 'Substituições para Ovo (~80 kcal)', items: [ 'Frango desfiado: 50g', 'Atum em água (conserva): 70g', 'Tofu firme: 100g', 'Queijo Cottage: 80g', 'Iogurte Grego natural (sem açúcar): 120g' ] },
-                requeijao: { title: 'Substituições para Requeijão (~77 kcal)', items: ['Ricota: 50g', 'Abacate: 45g', 'Cream Cheese: 25g'] },
-                amendoim: { title: 'Substituições para Pasta de Amendoim (~123 kcal)', items: ['Pasta de amêndoas: 20g', 'Mix de castanhas: 20g', 'Sementes de girassol: 20g']},
-                frango: { title: 'Substituições para Frango (~147 kcal)', items: [ 'Filé de Tilápia ou Pescada Branca: 150g', 'Carne bovina magra (patinho moído): 100g', 'Ovos inteiros cozidos: 2 unidades', 'Lentilha cozida: 200g', ] },
-                arroz: { title: 'Substituições para Arroz (~128 kcal)', items: [ 'Macarrão cozido: 100g', 'Batata inglesa cozida: 160g', 'Quinoa cozida: 100g', 'Mandioquinha (batata baroa) cozida: 140g', 'Inhame cozido: 110g', 'Cará cozido: 165g', 'Milho verde cozido: 130g' ] },
-                fruta_lanche: { title: 'Substituições para Fruta (~146 kcal)', items: [ 'Maçã Fuji ou Gala: 250g (2 unidades pequenas)', 'Mamão Papaya: 300g (1 unidade pequena)', 'Uvas: 200g', 'Uva Passa: 50g', 'Manga Palmer: 220g', 'Abacate: 90g (meio abacate pequeno)', 'Açaí (polpa pura, sem açúcar): 240g' ] },
-                fruta_almoco: { title: 'Substituições para Fruta (~73 kcal)', items: [ 'Laranja: 150g (1 unidade média)', 'Kiwi: 120g (2 unidades pequenas)', 'Morangos: 220g', 'Melão: 250g', 'Uva Passa: 25g', 'Pêra: 125g (1 unidade média)' ] }
+                pao: { title: 'Substituições para Pão (~104 kcal)', items: [ 'Tapioca (massa pronta): 40g (110 kcal)', 'Batata doce cozida: 120g (92 kcal)', 'Cuscuz de milho cozido: 90g (101 kcal)', 'Crepioca (1 ovo + 2 col. de tapioca) (175 kcal)' ] },
+                ovo: { title: 'Substituições para Ovo (~80 kcal)', items: [ 'Frango desfiado: 40g (68 kcal)', 'Atum em água (conserva): 75g (82 kcal)', 'Tofu firme: 110g (84 kcal)', 'Queijo Cottage: 80g (78 kcal)', 'Iogurte Grego natural (sem açúcar): 120g (70 kcal)' ] },
+                requeijao: { title: 'Substituições para Requeijão (~77 kcal)', items: ['Ricota: 50g (87 kcal)', 'Abacate: 45g (72 kcal)', 'Cream Cheese: 25g (74 kcal)'] },
+                amendoim: { title: 'Substituições para Pasta de Amendoim (~123 kcal)', items: ['Pasta de amêndoas: 20g (128 kcal)', 'Mix de castanhas: 20g (134 kcal)', 'Sementes de girassol: 20g (117 kcal)']},
+                lentilha: { title: 'Substituições para Proteína (~150-180 kcal)', items: [ 'Filé de Tilápia ou Pescada Branca: 150g (147 kcal)', 'Carne bovina magra (patinho moído): 100g (219 kcal)', 'Ovos inteiros cozidos: 2 unidades (160 kcal)', 'Peito de frango cozido: 90g (147 kcal)' ] },
+                arroz: { title: 'Substituições para Arroz (~128 kcal)', items: [ 'Macarrão cozido: 100g (125 kcal)', 'Batata inglesa cozida: 160g (83 kcal)', 'Quinoa cozida: 100g (120 kcal)', 'Mandioquinha (batata baroa) cozida: 100g (89 kcal)', 'Inhame cozido: 130g (91 kcal)', 'Cará cozido: 165g (129 kcal)', 'Milho verde cozido: 130g (127 kcal)' ] },
+                fruta_lanche: { title: 'Substituições para Fruta (~146 kcal)', items: [ 'Maçã Fuji ou Gala: 250g (140 kcal)', 'Mamão Papaya: 350g (140 kcal)', 'Uvas: 230g (158 kcal)', 'Uva Passa: 50g (150 kcal)', 'Manga Palmer: 220g (132 kcal)', 'Abacate: 90g (144 kcal)', 'Açaí (polpa pura, sem açúcar): 240g (139 kcal)' ] },
+                fruta_almoco: { title: 'Substituições para Fruta (~73 kcal)', items: [ 'Laranja: 150g (55 kcal)', 'Kiwi: 120g (61 kcal)', 'Morangos: 220g (66 kcal)', 'Melão: 250g (72 kcal)', 'Uva Passa: 25g (75 kcal)', 'Pêra: 125g (66 kcal)' ] }
             }
         };
 
@@ -197,7 +191,6 @@
         function renderAnalysisDashboard() {
             const container = document.getElementById('analysis-dashboard');
             container.innerHTML = `
-                <!-- Resumo Card -->
                 <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-bold text-green-700">Resumo</h2>
@@ -215,7 +208,6 @@
                     </div>
                 </div>
 
-                <!-- Macros por Peso Card -->
                 <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-bold text-green-700">Macros por Peso</h2>
@@ -231,13 +223,11 @@
                     </div>
                 </div>
 
-                <!-- Distribuição de Macros Card -->
                 <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
                     <h2 class="text-lg font-bold text-green-700 mb-4">Distribuição de Macros</h2>
                     <div id="macro-distribution-bars" class="space-y-4"></div>
                 </div>
 
-                <!-- Calorias por Refeição Card -->
                 <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200/80">
                     <h2 class="text-lg font-bold text-green-700 mb-4">Calorias por Refeição</h2>
                     <div id="meal-breakdown-bars" class="space-y-4"></div>
@@ -269,7 +259,7 @@
             document.querySelector(`#summary-view-toggle button[onclick="updateSummaryView('${view}')"]`).classList.add('active');
             
             const { totalKcal, totalCarbs, totalProtein, totalFat } = totals || calculateAllTotals();
-            document.getElementById('summary-kcal').textContent = totalKcal;
+            document.getElementById('summary-kcal').textContent = totalKcal.toFixed(0);
             
             const carbKcal = totalCarbs * 4, proteinKcal = totalProtein * 4, fatKcal = totalFat * 9;
             const totalMacroKcal = carbKcal + proteinKcal + fatKcal;
@@ -338,7 +328,7 @@
                 mealDiv.innerHTML = `
                     <div class="flex justify-between items-baseline mb-1">
                         <span class="font-semibold text-gray-700">${meal.name}</span>
-                        <span class="text-sm text-gray-500">${mealKcal} kcal</span>
+                        <span class="text-sm text-gray-500">${mealKcal.toFixed(0)} kcal</span>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-bar-inner bg-green-500" style="width: ${percentage}%;">
@@ -383,7 +373,7 @@
             const fatPercent = totalMacroKcal > 0 ? (fatKcal / totalMacroKcal * 100).toFixed(0) : 0;
             const modal = document.getElementById('info-modal');
             document.getElementById('info-modal-title').textContent = `${meal.name} - Detalhes`;
-            document.getElementById('info-modal-total-kcal').textContent = `~${totalKcal} kcal`;
+            document.getElementById('info-modal-total-kcal').textContent = `~${totalKcal.toFixed(0)} kcal`;
             document.getElementById('info-modal-macros').innerHTML = `
                 <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Carboidratos</span><span class="text-sm text-gray-500">${totalCarbs.toFixed(0)}g (~${carbKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-blue-500" style="width: ${carbPercent}%;"><span class="text-xs font-bold text-white pl-2">${carbPercent}%</span></div></div></div>
                 <div><div class="flex justify-between items-baseline mb-1"><span class="font-bold text-gray-700">Proteínas</span><span class="text-sm text-gray-500">${totalProtein.toFixed(0)}g (~${proteinKcal.toFixed(0)} kcal)</span></div><div class="progress-bar"><div class="progress-bar-inner bg-red-500" style="width: ${proteinPercent}%;"><span class="text-xs font-bold text-white pl-2">${proteinPercent}%</span></div></div></div>
