@@ -12,9 +12,9 @@ const CACHE_NAME = 'plano-alimentar-cache-v4';
 // Lista de ficheiros essenciais para o funcionamento offline.
 // Os caminhos são absolutos para funcionar corretamente em subdiretórios (ex: GitHub Pages).
 const urlsToCache = [
-  '/dieta/',
-  '/dieta/index.html',
-  '/dieta/manifest.json'
+  '/dieta_higor/',
+  '/dieta_higor/index.html',
+  '/dieta_higor/manifest.json'
 ];
 
 
