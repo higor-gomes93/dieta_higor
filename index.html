@@ -79,12 +79,12 @@
             <div id="content-dieta" class="tab-content active">
                 <div id="meals-container" class="space-y-8">
                     </div>
-                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 06/07/2025</p>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 07/07/2025</p>
             </div>
             <div id="content-analise" class="tab-content">
                 <div id="analysis-dashboard" class="space-y-6">
                     </div>
-                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 06/07/2025</p>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 07/07/2025</p>
             </div>
         </main>
     </div>
@@ -119,7 +119,7 @@
                 'ovo': { name: 'Ovo inteiro cozido', quantity: '1 unidade', kcal: 80, carbs: 1, protein: 6, fat: 5, subs: 'ovo' },
                 'requeijao': { name: 'Requeijão cremoso', quantity: '30g', kcal: 77, carbs: 1, protein: 2, fat: 7, subs: 'requeijao' },
                 'banana_cafe': { name: 'Banana nanica', quantity: '80g', kcal: 73, carbs: 18, protein: 1, fat: 0, subs: 'fruta_almoco' },
-                'lentilha': { name: 'Lentilha cozida', quantity: '200g', kcal: 186, carbs: 32.6, protein: 12.6, fat: 1, subs: 'lentilha' },
+                'lentilha': { name: 'Lentilha cozida', quantity: '200g', kcal: 186, carbs: 32.6, protein: 12.6, fat: 1, subs: 'proteina_principal' },
                 'arroz_almoco': { name: 'Arroz branco cozido', quantity: '100g', kcal: 128, carbs: 28, protein: 3, fat: 0, subs: 'arroz' },
                 'fruta_almoco': { name: 'Abacaxi', quantity: '150g', kcal: 72, carbs: 19, protein: 1, fat: 0, subs: 'fruta_almoco' },
                 'azeite': { name: 'Azeite de oliva extra virgem', quantity: '7g', kcal: 62, carbs: 0, protein: 0, fat: 7, subs: null },
@@ -129,7 +129,7 @@
                 'aveia': { name: 'Aveia em flocos', quantity: '20g', kcal: 79, carbs: 13, protein: 3, fat: 2, subs: null },
                 'amendoim': { name: 'Pasta de amendoim', quantity: '20g', kcal: 123, carbs: 4, protein: 5, fat: 10, subs: 'amendoim' },
                 'creatina': { name: 'Creatina', quantity: '5g', kcal: 0, carbs: 0, protein: 0, fat: 0, subs: null },
-                'frango_jantar': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'lentilha' },
+                'frango_jantar': { name: 'Peito de frango cozido', quantity: '90g', kcal: 147, carbs: 0, protein: 28, fat: 3, subs: 'proteina_principal' },
                 'arroz_jantar': { name: 'Arroz branco cozido', quantity: '100g', kcal: 128, carbs: 28, protein: 3, fat: 0, subs: 'arroz' },
                 'fruta_jantar': { name: 'Abacaxi', quantity: '150g', kcal: 72, carbs: 19, protein: 1, fat: 0, subs: 'fruta_almoco' },
                 'azeite_jantar': { name: 'Azeite de oliva', quantity: '7g', kcal: 62, carbs: 0, protein: 0, fat: 7, subs: null },
@@ -140,7 +140,16 @@
                 ovo: { title: 'Substituições para Ovo (~80 kcal)', items: [ 'Frango desfiado: 40g (68 kcal)', 'Atum em água (conserva): 75g (82 kcal)', 'Tofu firme: 110g (84 kcal)', 'Queijo Cottage: 80g (78 kcal)', 'Iogurte Grego natural (sem açúcar): 120g (70 kcal)' ] },
                 requeijao: { title: 'Substituições para Requeijão (~77 kcal)', items: ['Ricota: 50g (87 kcal)', 'Abacate: 45g (72 kcal)', 'Cream Cheese: 25g (74 kcal)'] },
                 amendoim: { title: 'Substituições para Pasta de Amendoim (~123 kcal)', items: ['Pasta de amêndoas: 20g (128 kcal)', 'Mix de castanhas: 20g (134 kcal)', 'Sementes de girassol: 20g (117 kcal)']},
-                lentilha: { title: 'Substituições para Proteína (~150-180 kcal)', items: [ 'Filé de Tilápia ou Pescada Branca: 150g (147 kcal)', 'Carne bovina magra (patinho moído): 100g (219 kcal)', 'Ovos inteiros cozidos: 2 unidades (160 kcal)', 'Peito de frango cozido: 90g (147 kcal)' ] },
+                proteina_principal: { title: 'Substituições para Proteína Principal (~150-190 kcal)', items: [
+                    'Filé de Tilápia Grelhado: 120g (154 kcal)',
+                    'Patinho Moído Refogado: 70g (179 kcal)',
+                    'Ovos Inteiros Cozidos: 2 unidades (154 kcal)',
+                    'Feijão Carioca Cozido: 230g (175 kcal)',
+                    'Lentilha Cozida: 200g (186 kcal)',
+                    'Proteína de Soja Texturizada (hidratada): 80g (148 kcal)',
+                    'Tofu Firme Grelhado: 200g (128 kcal)',
+                    'Atum em Água (lata drenada): 150g (174 kcal)'
+                ]},
                 arroz: { title: 'Substituições para Arroz (~128 kcal)', items: [ 'Macarrão cozido: 100g (125 kcal)', 'Batata inglesa cozida: 160g (83 kcal)', 'Quinoa cozida: 100g (120 kcal)', 'Mandioquinha (batata baroa) cozida: 100g (89 kcal)', 'Inhame cozido: 130g (91 kcal)', 'Cará cozido: 165g (129 kcal)', 'Milho verde cozido: 130g (127 kcal)' ] },
                 fruta_lanche: { title: 'Substituições para Fruta (~146 kcal)', items: [ 'Maçã Fuji ou Gala: 250g (140 kcal)', 'Mamão Papaya: 350g (140 kcal)', 'Uvas: 230g (158 kcal)', 'Uva Passa: 50g (150 kcal)', 'Manga Palmer: 220g (132 kcal)', 'Abacate: 90g (144 kcal)', 'Açaí (polpa pura, sem açúcar): 240g (139 kcal)' ] },
                 fruta_almoco: { title: 'Substituições para Fruta (~73 kcal)', items: [ 'Laranja: 150g (55 kcal)', 'Kiwi: 120g (61 kcal)', 'Morangos: 220g (66 kcal)', 'Melão: 250g (72 kcal)', 'Uva Passa: 25g (75 kcal)', 'Pêra: 125g (66 kcal)' ] }
