@@ -68,7 +68,7 @@
     <div class="container mx-auto px-4 pt-10 pb-12 md:px-6 md:pt-12 max-w-2xl">
         <header class="text-center mb-8">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-800">Meu Plano Alimentar</h1>
-            <p class="text-md text-gray-600 mt-1">Plano Alimentar Final: Performance e Longevidade (v2.5)</p>
+            <p class="text-md text-gray-600 mt-1">Plano Alimentar Final: Performance e Longevidade (v2.7)</p>
         </header>
 
         <nav class="p-1 mb-8 bg-green-100 rounded-lg flex justify-center space-x-2">
@@ -80,12 +80,12 @@
             <div id="content-dieta" class="tab-content active">
                 <div id="meals-container" class="space-y-8">
                     </div>
-                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 31/08/2025</p>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 01/09/2025</p>
             </div>
             <div id="content-analise" class="tab-content">
                 <div id="analysis-dashboard" class="space-y-6">
                     </div>
-                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 31/08/2025</p>
+                <p class="text-center text-xs text-gray-400 mt-8">Atualizado em 01/09/2025</p>
             </div>
         </main>
     </div>
@@ -111,34 +111,37 @@
         const dietData = {
             meals: [
                 { id: 'cafe', name: 'Café da Manhã / Pós-Treino', time: '08:00', items: ['ovo_inteiro_cafe', 'pao_artesano_cafe', 'banana_cafe', 'requeijao_light_cafe'] },
-                { id: 'almoco', name: 'Almoço', time: '12:30', items: ['frango_almoco', 'arroz_almoco', 'feijao_almoco', 'salada_almoco', 'azeite_almoco'] },
-                { id: 'lanche', name: 'Lanche da Tarde', time: '16:00', items: ['aveia_lanche', 'whey_lanche', 'amendoim_lanche', 'passas_lanche', 'creatina_lanche'] },
-                { id: 'jantar', name: 'Jantar', time: '20:30', items: ['frango_jantar', 'arroz_jantar', 'brocolis_jantar', 'azeite_jantar', 'salada_jantar'] }
+                { id: 'almoco', name: 'Almoço', time: '12:30', items: ['frango_almoco', 'arroz_almoco', 'feijao_almoco', 'abacaxi_almoco', 'salada_almoco', 'azeite_almoco'] },
+                { id: 'lanche', name: 'Lanche da Tarde', time: '16:00', items: ['aveia_lanche', 'whey_lanche', 'amendoim_lanche', 'passas_lanche', 'banana_lanche', 'creatina_lanche'] },
+                { id: 'jantar', name: 'Jantar', time: '20:30', items: ['frango_jantar', 'arroz_jantar', 'abacaxi_jantar', 'brocolis_jantar', 'azeite_jantar', 'salada_jantar'] }
             ],
             foods: {
                 // Café da Manhã
-                'ovo_inteiro_cafe': { name: 'Ovo Inteiro', quantity: '1 unidade', kcal: 78, carbs: 1, protein: 6, fat: 5, subs: 'prot_cafe' },
+                'ovo_inteiro_cafe': { name: 'Ovos Inteiros', quantity: '1 unidade', kcal: 78, carbs: 1, protein: 6, fat: 5, subs: 'prot_cafe' },
                 'pao_artesano_cafe': { name: 'Pão Artesano', quantity: '3 fatias (~125g)', kcal: 312, carbs: 58, protein: 12, fat: 4, subs: 'carb_cafe' },
                 'banana_cafe': { name: 'Banana', quantity: '200g (~2 unidades)', kcal: 178, carbs: 46, protein: 2, fat: 1, subs: 'fruta_cafe' },
-                'requeijao_light_cafe': { name: 'Requeijão Cremoso Light', quantity: '30g', kcal: 51, carbs: 2, protein: 4, fat: 3, subs: 'gord_prot_cafe' },
+                'requeijao_light_cafe': { name: 'Requeijão Cremoso Light', quantity: '30g', kcal: 50, carbs: 2, protein: 4, fat: 3, subs: 'gord_prot_cafe' },
                 // Almoço
                 'frango_almoco': { name: 'Filé de Frango Grelhado/Desfiado', quantity: '50g', kcal: 80, carbs: 0, protein: 16, fat: 2, subs: 'prot_almoco' },
-                'arroz_almoco': { name: 'Arroz Branco Cozido', quantity: '240g', kcal: 312, carbs: 67, protein: 6, fat: 1, subs: null },
+                'arroz_almoco': { name: 'Arroz Branco Cozido', quantity: '170g', kcal: 221, carbs: 48, protein: 4, fat: 1, subs: 'carb_almoco' },
                 'feijao_almoco': { name: 'Feijão Carioca Cozido', quantity: '160g', kcal: 122, carbs: 22, protein: 8, fat: 1, subs: 'leguminosa_almoco' },
+                'abacaxi_almoco': { name: 'Abacaxi', quantity: '150g (1 fatia grande)', kcal: 75, carbs: 20, protein: 1, fat: 0, subs: 'fruta_almoco_jantar'},
                 'salada_almoco': { name: 'Salada de Folhas e Legumes', quantity: 'À vontade', kcal: 25, carbs: 5, protein: 1, fat: 0, subs: null },
                 'azeite_almoco': { name: 'Azeite de Oliva Extra Virgem', quantity: '15g', kcal: 132, carbs: 0, protein: 0, fat: 15, subs: 'gord_almoco' },
                 // Lanche
-                'aveia_lanche': { name: 'Aveia em Flocos', quantity: '80g', kcal: 304, carbs: 53, protein: 13, fat: 6, subs: 'carb_lanche' },
+                'aveia_lanche': { name: 'Aveia em Flocos', quantity: '50g', kcal: 190, carbs: 33, protein: 7, fat: 4, subs: 'carb_lanche' },
                 'whey_lanche': { name: 'Whey Protein Isolado/Concentrado', quantity: '20g', kcal: 80, carbs: 2, protein: 18, fat: 1, subs: 'prot_lanche' },
                 'amendoim_lanche': { name: 'Pasta de Amendoim Integral', quantity: '30g', kcal: 177, carbs: 6, protein: 8, fat: 15, subs: 'gord_lanche' },
-                'passas_lanche': { name: 'Uva Passa', quantity: '30g', kcal: 90, carbs: 24, protein: 1, fat: 0, subs: 'fruta_lanche' },
+                'passas_lanche': { name: 'Uva Passa', quantity: '30g', kcal: 90, carbs: 24, protein: 1, fat: 0, subs: 'fruta_combo_lanche' },
+                'banana_lanche': { name: 'Banana', quantity: '100g (1 unidade média)', kcal: 89, carbs: 23, protein: 1, fat: 0, subs: 'fruta_combo_lanche' },
                 'creatina_lanche': { name: 'Creatina Monohidratada', quantity: '5g', kcal: 0, carbs: 0, protein: 0, fat: 0, subs: null },
                 // Jantar
                 'frango_jantar': { name: 'Filé de Frango Grelhado', quantity: '60g', kcal: 99, carbs: 0, protein: 19, fat: 2, subs: 'prot_jantar' },
-                'arroz_jantar': { name: 'Arroz Branco Cozido', quantity: '150g', kcal: 195, carbs: 42, protein: 4, fat: 1, subs: 'carb_jantar' },
+                'arroz_jantar': { name: 'Arroz Branco Cozido', quantity: '80g', kcal: 104, carbs: 23, protein: 2, fat: 0, subs: 'carb_jantar' },
+                'abacaxi_jantar': { name: 'Abacaxi', quantity: '150g (1 fatia grande)', kcal: 75, carbs: 20, protein: 1, fat: 0, subs: 'fruta_almoco_jantar'},
                 'brocolis_jantar': { name: 'Brócolis Cozido', quantity: 'Mínimo 150g', kcal: 53, carbs: 11, protein: 4, fat: 0, subs: 'veggie_jantar' },
                 'azeite_jantar': { name: 'Azeite de Oliva Extra Virgem', quantity: '15g', kcal: 132, carbs: 0, protein: 0, fat: 15, subs: 'gord_jantar' },
-                'salada_jantar': { name: 'Salada de Folhas e Legumes', quantity: 'À vontade', kcal: 25, carbs: 5, protein: 1, fat: 0, subs: null },
+                'salada_jantar': { name: 'Salada de Folhas e Legumes', quantity: 'À vontade', kcal: 25, carbs: 5, protein: 1, fat: 0, subs: null }
             },
             substitutions: {
                 'prot_cafe': { title: 'Substituições para Ovo (Café)', items: ['50g de queijo cottage', '35g de frango desfiado', '2 claras de ovo'] },
@@ -146,15 +149,17 @@
                 'fruta_cafe': { title: 'Substituições para Banana (Café)', items: ['300g de maçã', '400g de mamão formosa', '300g de pera', '350g de morangos', '400g de melão'] },
                 'gord_prot_cafe': { title: 'Substituições para Requeijão (Café)', items: ['30g de cream cheese light', '40g de ricota fresca', '30g de creme de ricota light', '40g de abacate amassado'] },
                 'prot_almoco': { title: 'Substituições para Frango (Almoço)', items: ['50g de patinho moído refogado', '65g de filé de tilápia grelhado', '50g de filé mignon suíno grelhado', '50g de coxão mole moído', '80g de tofu firme'] },
+                'carb_almoco': { title: 'Substituições para Arroz (Almoço)', items: ['215g de batata inglesa cozida', '170g de macarrão cozido', '170g de mandioca (aipim) cozida'] },
                 'leguminosa_almoco': { title: 'Substituições para Feijão (Almoço)', items: ['160g de lentilha cozida', '160g de grão de bico cozido'] },
-                'gord_almoco': { title: 'Substituições para Azeite (Almoço)', items: ['25g de mix de castanhas (pará, caju, amêndoas)', '80g de abacate', '15g de óleo de abacate', '25g de sementes de girassol ou abóbora'] },
-                'carb_lanche': { title: 'Substituições para Aveia (Lanche)', items: ['80g de farinha de aveia', '80g de quinoa em flocos', '280g de batata doce cozida'] },
+                'fruta_almoco_jantar': { title: 'Substituições para Abacaxi (Almoço/Jantar)', items: ['100g de banana', '30g de uva passa'] },
+                'gord_almoco': { title: 'Substituições para Azeite (Almoço)', items: ['25g de mix de castanhas (pará, caju, amêndoas)', '80g de abacate', '15g de óleo de abacate'] },
+                'carb_lanche': { title: 'Substituições para Aveia (Lanche)', items: ['50g de farinha de aveia', '50g de quinoa em flocos', '180g de batata doce cozida'] },
                 'prot_lanche': { title: 'Substituições para Whey (Lanche)', items: ['30g de albumina', '25g de proteína de soja isolada', '200g de iogurte grego natural'] },
                 'gord_lanche': { title: 'Substituições para Pasta de Amendoim (Lanche)', items: ['30g de pasta de castanha de caju', '30g de tahine (pasta de gergelim)', '40g de amêndoas'] },
-                'fruta_lanche': { title: 'Substituições para Uva Passa (Lanche)', items: ['200g de maçã', '280g de pera', '330g de mamão', '400g de melão', '280g de morangos', '1 cacho médio de uvas frescas (200g)'] },
+                'fruta_combo_lanche': { title: 'Substituições para Uva Passa + Banana (Lanche)', items: ['250g de abacaxi', '200g de maçã', '1 cacho grande de uvas frescas (250g)'] },
                 'prot_jantar': { title: 'Substituições para Frango (Jantar)', items: ['60g de patinho moído', '80g de filé de tilápia grelhado', '80g de filé de salmão grelhado', '60g de lombo suíno magro', '100g de tofu firme grelhado'] },
-                'carb_jantar': { title: 'Substituições para Arroz (Jantar)', items: ['190g de batata inglesa cozida', '150g de batata doce cozida', '150g de mandioca (aipim) cozida', '165g de mandioquinha (batata baroa) cozida'] },
-                'veggie_jantar': { title: 'Substituições para Brócolis (Jantar)', items: ['150g de couve-flor', '150g de vagem', '150g de aspargos', '150g de abobrinha refogada', '150g de berinjela grelhada'] },
+                'carb_jantar': { title: 'Substituições para Arroz (Jantar)', items: ['100g de batata inglesa cozida', '80g de batata doce cozida', '80g de mandioca (aipim) cozida'] },
+                'veggie_jantar': { title: 'Substituições para Brócolis (Jantar)', items: ['150g de couve-flor', '150g de vagem', '150g de aspargos', '150g de abobrinha refogada'] },
                 'gord_jantar': { title: 'Substituições para Azeite (Jantar)', items: ['25g de nozes', '80g de abacate', '20g de sementes de chia (hidratadas)'] }
             }
         };
